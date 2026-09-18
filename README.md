@@ -26,6 +26,28 @@ cd ~/Claude/GuamEnglish && python3 -m http.server 5173
 
 シナリオは現在 2 本（`airplane` / `immigration`）。
 
+## 家族に配る（GitHub Pages）
+
+スマホに `http://localhost:5173` を送っても**開けない**。localhost は「その端末自身」を指すため。
+家族全員がいつでも使えるようにするには、GitHub Pages に上げて https の URL を配る。
+
+1. **GitHub のアカウントを作る** … https://github.com/signup
+2. **GitHub Desktop を入れてサインイン** … https://desktop.github.com
+   （ターミナルでトークンを扱わずに済むのでこちらが楽）
+3. GitHub Desktop で `File → Add Local Repository` → `~/Claude/GuamEnglish` を選ぶ
+4. `Publish repository` を押す。名前は `koko-english`、**Public** のまま
+   （Private + Pages は有料プランが必要。学習アプリなので公開で問題ない。
+   　学習記録は各端末の中だけに保存されるので、公開されるのはアプリのコードだけ）
+5. github.com の当該リポジトリ → `Settings` → `Pages`
+   → Source を `Deploy from a branch`、ブランチを `main` / `/ (root)` にして `Save`
+6. 数分待つと公開される:
+   `https://<GitHubのユーザー名>.github.io/koko-english/`
+7. この URL を家族の LINE に送る
+
+更新するときは、GitHub Desktop で `Commit` → `Push origin`。数分で全員の端末に反映される。
+
+> サブディレクトリ配信（`/koko-english/` 配下）で動くことは確認済み。パスはすべて相対にしてある。
+
 ## スマホで試すときの注意
 
 マイク（発音チェック）は **セキュアコンテキストでしか動かない**。
