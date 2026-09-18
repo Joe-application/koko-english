@@ -10,6 +10,7 @@ import * as result from "./views/result.js";
 import * as profile from "./views/profile.js";
 import * as settings from "./views/settings.js";
 import * as soon from "./views/soon.js";
+import * as collection from "./views/collection.js";
 
 /* ---------- タブ ---------- */
 const TABS = [
@@ -105,7 +106,7 @@ def("/", (v) => home.render(v));
 def("/scenarios", (v) => scenarioList.render(v));
 def("/scenario/:id", (v, p) => scenarioPlay.render(v, p));
 def("/result/:id", (v, p) => result.render(v, p));
-def("/collection", (v) => soon.render(v, { key: "collection" }));
+def("/collection", (v) => collection.render(v));
 def("/family", (v) => soon.render(v, { key: "family" }));
 def("/phrasebook", (v) => soon.render(v, { key: "phrasebook" }));
 def("/settings", (v) => settings.render(v));

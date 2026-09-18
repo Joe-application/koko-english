@@ -24,7 +24,7 @@ export function render(root, { id }) {
   /* ---------- イントロ ---------- */
   root.innerHTML = html`
     <div class="sc-intro">
-      <div class="koko-stage">${raw(renderKoko({ expression: "normal", outfit: profile.equipped?.outfit, size: 120 }))}</div>
+      <div class="koko-stage">${raw(renderKoko({ expression: "normal", outfit: profile.equipped?.outfit, hat: profile.equipped?.hat, size: 120 }))}</div>
       <div style="font-size:40px">${sc.icon}</div>
       <h2>${sc.title.ja}</h2>
       <div class="sc-place">${sc.place}</div>

@@ -23,7 +23,7 @@ export function render(root) {
   root.innerHTML = html`
     <div class="home-hero">
       <span class="countdown">グアムまであと <b>${daysUntilTrip()}</b> 日</span>
-      <div class="koko-stage">${raw(renderKoko({ expression: mood, outfit: p.equipped?.outfit, size: 150 }))}</div>
+      <div class="koko-stage">${raw(renderKoko({ expression: mood, outfit: p.equipped?.outfit, hat: p.equipped?.hat, size: 150 }))}</div>
       <div class="bubble" data-act="kokoTap" role="button" tabindex="0">${kokoLine(lineKey)}</div>
     </div>
 

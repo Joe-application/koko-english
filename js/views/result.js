@@ -3,7 +3,7 @@ import { getScenario, recommendNext } from "../../content/index.js";
 import { refreshActive } from "../store.js";
 import { getLastResult } from "../progress.js";
 import { renderKoko, kokoLine } from "../character/koko.js";
-import { itemName } from "../../content/items.js";
+import { itemMap } from "../../content/items.js";
 import { go } from "../router.js";
 import * as tts from "../speech/tts.js";
 
@@ -19,7 +19,7 @@ export function render(root, { id }) {
 
   root.innerHTML = html`
     <div class="card" style="text-align:center">
-      <div class="koko-stage">${raw(renderKoko({ expression: mood, outfit: p.equipped?.outfit, size: 140 }))}</div>
+      <div class="koko-stage">${raw(renderKoko({ expression: mood, outfit: p.equipped?.outfit, hat: p.equipped?.hat, size: 140 }))}</div>
       <div class="bubble" style="text-align:center">${kokoLine(lineKey)}</div>
       <div class="result-score" style="margin-top:14px">${r.score}<small> 点</small></div>
       <div class="reward-row">
@@ -27,9 +27,7 @@ export function render(root, { id }) {
         <div class="reward">+${r.coins}<small>コイン</small></div>
       </div>
       ${raw(r.noPoints ? '<p class="hint">今日はこのシナリオを何度も練習したので、ポイントはここまで。練習は何回でもできるよ。</p>' : "")}
-      ${raw(r.isFirstClear && r.newItems.length
-        ? `<p class="hint">🎁 おみやげ「${esc(itemName(r.newItems[0]))}」を手に入れた！（コレクションは次のアップデートで見られるようになります）</p>`
-        : "")}
+      ${raw(gotRow([...(r.newItems || []), ...(r.newBadges || [])]))}
     </div>
 
     <div class="card">
@@ -42,6 +40,10 @@ export function render(root, { id }) {
       </ul>
     </div>
 
+    ${raw((r.newItems?.length || r.newBadges?.length)
+      ? '<div style="margin-bottom:14px"><button class="btn btn-sub" data-act="coll">コレクションを見る</button></div>'
+      : "")}
+
     <div class="btn-row">
       <button class="btn btn-sub" data-act="again">もう一度</button>
       <button class="btn" data-act="next">${next.id === sc.id ? "ホームへ" : "つぎのシナリオ"}</button>
@@ -50,7 +52,20 @@ export function render(root, { id }) {
   `;
 
   on(root, "say", (_, node) => tts.speak(sc.wrapUp.phrases[Number(node.dataset.i)]));
+  on(root, "coll", () => go("/collection"));
   on(root, "again", () => go(`/scenario/${sc.id}`, { replace: true }));
   on(root, "next", () => go(next.id === sc.id ? "/" : `/scenario/${next.id}`, { replace: true }));
   on(root, "home", () => go("/", { replace: true }));
+}
+
+/** 今回あたらしく手に入れたものを、名前だけでなく絵で見せる */
+function gotRow(ids) {
+  if (!ids.length) return "";
+  return `<div class="got-row">${ids.map((id) => {
+    const item = itemMap[id];
+    if (!item) return "";
+    return `<div class="got">${item.icon}<span>${esc(item.name)}</span><small>${
+      item.type === "badge" ? "バッジ獲得" : "おみやげ獲得"
+    }</small></div>`;
+  }).join("")}</div>`;
 }

@@ -1,6 +1,7 @@
 /** スコア集計とごほうびの計算。SPEC.md §8.1 */
 import { updateActive, getActiveProfile, todayStr } from "./store.js";
 import { getScenario } from "../content/index.js";
+import { newlyEarnedBadges } from "./badges.js";
 
 let lastResult = null;
 export function getLastResult() { return lastResult; }
@@ -54,6 +55,15 @@ export function finishScenario(scenarioId, scores) {
     }
   });
 
-  lastResult = { scenarioId, score, points, coins, newItems, isFirstClear, noPoints: rate === 0 };
+  // おみやげ・ポイント・連続日数が確定したあとでバッジを判定する。
+  // 順番が逆だと「おみやげ5こ」のようなバッジが1回ぶん遅れて付く。
+  const newBadges = newlyEarnedBadges(getActiveProfile());
+  if (newBadges.length) {
+    updateActive((p) => {
+      newBadges.forEach((id) => { if (!p.items.includes(id)) p.items.push(id); });
+    });
+  }
+
+  lastResult = { scenarioId, score, points, coins, newItems, newBadges, isFirstClear, noPoints: rate === 0 };
   return lastResult;
 }

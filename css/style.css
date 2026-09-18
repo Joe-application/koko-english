@@ -457,3 +457,48 @@ label { display: block; font-size: 13px; font-weight: 700; color: var(--text-dim
 .diag-row:last-child { border-bottom: 0; }
 .diag-mark { font-size: 18px; flex: 0 0 auto; }
 .diag-row .hint { margin: 0; }
+
+/* ---------- コレクション ---------- */
+.coll-head { text-align: center; margin-bottom: 8px; }
+.coin-pill {
+  display: inline-block; background: var(--surface); border-radius: 999px;
+  padding: 6px 16px; font-weight: 800; font-size: 15px; box-shadow: var(--shadow);
+}
+.seg {
+  display: flex; gap: 4px; background: var(--surface-2);
+  border-radius: 14px; padding: 4px; margin: 12px 0 4px;
+}
+.seg-btn {
+  flex: 1; border: 0; background: transparent; border-radius: 11px;
+  padding: 8px 4px; min-height: 44px;
+  font-family: inherit; font-size: 13px; font-weight: 700; color: var(--text-dim);
+  cursor: pointer; line-height: 1.2;
+}
+.seg-btn small { display: block; font-size: 10px; font-weight: 600; opacity: .8; }
+.seg-btn[aria-selected="true"] { background: var(--surface); color: var(--turquoise); box-shadow: var(--shadow); }
+.coll-count { text-align: center; margin: 4px 0 12px; }
+
+.item-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.item-card {
+  background: var(--surface); border-radius: 14px; padding: 10px 6px;
+  text-align: center; box-shadow: var(--shadow);
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  border: 2px solid transparent;
+}
+.item-card.is-equipped { border-color: var(--turquoise); }
+.item-svg { width: 46px; height: 46px; display: block; }
+.item-card.is-locked .item-svg { filter: brightness(0) saturate(0); opacity: .18; }
+.item-name { font-size: 12px; font-weight: 700; line-height: 1.3; }
+.item-card.is-locked .item-name { color: var(--text-dim); }
+.item-how { font-size: 10px; color: var(--text-dim); line-height: 1.35; flex: 1; }
+.item-card .btn-sm { width: 100%; font-size: 12px; min-height: 34px; padding: 4px 6px; }
+
+/* リザルトの新規獲得表示 */
+.got-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 12px; }
+.got {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  background: var(--surface-2); border-radius: 12px; padding: 8px 12px; min-width: 84px;
+}
+.got .item-svg { width: 40px; height: 40px; }
+.got span { font-size: 11px; font-weight: 700; }
+.got small { font-size: 9px; color: var(--text-dim); font-weight: 700; }
