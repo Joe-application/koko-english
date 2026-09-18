@@ -581,3 +581,18 @@ label { display: block; font-size: 13px; font-weight: 700; color: var(--text-dim
 .big-en { font-size: clamp(28px, 8vw, 46px); font-weight: 800; line-height: 1.25; }
 .big-ja { font-size: 15px; color: var(--text-dim); }
 .big-say { width: auto; padding: 12px 24px; }
+
+/* ---------- 更新のおしらせ ---------- */
+.update-bar {
+  position: fixed; top: calc(var(--safe-t) + 4px); left: 50%;
+  transform: translateX(-50%);
+  width: min(calc(100% - 24px), calc(var(--maxw) - 24px));
+  z-index: 60;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  background: var(--navy); color: #fff;
+  padding: 10px 12px; border-radius: 14px;
+  font-size: 14px; font-weight: 700;
+  box-shadow: 0 6px 20px rgba(20, 33, 61, .3);
+}
+.update-bar[hidden] { display: none; }
+.update-bar .btn { width: auto; background: var(--sunset); }

@@ -129,11 +129,49 @@ function boot() {
   document.addEventListener("pointerdown", unlockOnce);
 
   window.addEventListener("store:error", (e) => toast(e.detail, 5000));
+  registerServiceWorker();
 
   if (!getActiveProfile() && path() !== "/welcome") {
     location.replace("#/welcome");
   }
   start();
+}
+
+/**
+ * オフラインで開けるようにする。
+ * 新しい版が届いても勝手に入れ替えない（練習の途中で画面が作り直されると困る）。
+ * 代わりに上部にバーを出し、押されたときだけ切り替える。
+ */
+function registerServiceWorker() {
+  if (!("serviceWorker" in navigator)) return;
+  if (location.protocol !== "https:" && location.hostname !== "localhost") return;
+
+  navigator.serviceWorker.register("./sw.js").then((reg) => {
+    const offerUpdate = (worker) => {
+      if (!worker) return;
+      worker.addEventListener("statechange", () => {
+        // controller がいる = すでに動いている版がある = これは「更新」
+        if (worker.state === "installed" && navigator.serviceWorker.controller) showUpdateBar(worker);
+      });
+    };
+    if (reg.waiting && navigator.serviceWorker.controller) showUpdateBar(reg.waiting);
+    reg.addEventListener("updatefound", () => offerUpdate(reg.installing));
+  }).catch((err) => console.warn("[sw] 登録できませんでした", err));
+
+  let reloading = false;
+  navigator.serviceWorker.addEventListener("controllerchange", () => {
+    if (reloading) return;
+    reloading = true;
+    location.reload();
+  });
+}
+
+function showUpdateBar(worker) {
+  const bar = document.getElementById("updateBar");
+  const btn = document.getElementById("updateBtn");
+  if (!bar || !btn) return;
+  bar.hidden = false;
+  btn.onclick = () => { bar.hidden = true; worker.postMessage("SKIP_WAITING"); };
 }
 
 boot();

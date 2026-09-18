@@ -1,0 +1,105 @@
+export default {
+  id: "shopping",
+  order: 7,
+  title: { ja: "買い物", en: "Shopping" },
+  icon: "🛍",
+  place: "タモンのコンビニと洋服店",
+  unlockAfter: ["fastfood"],
+  reward: { coins: 30, item: "abc-bag" },
+  intro: {
+    ja: "買い物へ。話しかけられても、答え方を知っていれば平気。",
+    tips: [
+      "店に入ると必ず声をかけられる。買う気がなければ Just looking. で大丈夫。",
+      "無視すると失礼にあたる。短くていいので何か返すのがマナー。",
+    ],
+  },
+  turns: [
+    { speaker: "npc", who: "店員", en: "Hi there! Let me know if you need any help.", ja: "こんにちは！何かあれば声をかけてくださいね。" },
+    {
+      speaker: "user", mode: "speak",
+      instruction: { ja: "「見ているだけです、ありがとう」と返そう" },
+      variants: {
+        1: "Just looking, thanks.",
+        2: "I'm just looking, thank you.",
+        3: "I'm just looking, thanks. I'll let you know.",
+      },
+      keywords: ["looking"],
+      hint: { ja: "これを知っているだけで、買い物のストレスが半分になる。" },
+    },
+    {
+      speaker: "user", mode: "speak",
+      instruction: { ja: "気になるTシャツを見つけた。「これはいくらですか？」と聞こう" },
+      variants: { 1: "How much is this?", 2: "How much is this one?", 3: "Excuse me, how much is this one?" },
+      keywords: ["much"],
+    },
+    { speaker: "npc", who: "店員", en: "That one's nineteen ninety-nine.", ja: "それは19ドル99セントです。" },
+    {
+      speaker: "user", mode: "speak",
+      instruction: { ja: "聞き取れなかった。「ゆっくりお願いします」と伝えよう" },
+      variants: {
+        1: "Slowly, please.",
+        2: "Sorry, could you say that more slowly?",
+        3: "I'm sorry, could you say that a little more slowly?",
+      },
+      keywords: ["slowly"],
+    },
+    { speaker: "npc", who: "店員", en: "Sure. Nineteen ninety-nine.", ja: "はい。19ドル99セントです。" },
+    {
+      speaker: "user", mode: "speak",
+      instruction: { ja: "「もう少し大きいサイズはありますか？」と聞こう" },
+      variants: {
+        1: "Bigger size?",
+        2: "Do you have a bigger size?",
+        3: "Do you have this in a larger size?",
+      },
+      keywords: ["size"],
+    },
+    { speaker: "npc", who: "店員", en: "Let me check in the back. … Yes, here's a large.", ja: "奥を見てきますね。…はい、Lサイズがありました。" },
+    {
+      speaker: "user", mode: "speak",
+      instruction: { ja: "「試着してもいいですか？」と聞こう" },
+      variants: { 1: "Can I try it?", 2: "Can I try this on?", 3: "Could I try this on, please?" },
+      keywords: ["try"],
+      hint: { ja: "try on で「試着する」。on を落とすと意味が変わるので注意。" },
+    },
+    { speaker: "npc", who: "店員", en: "Of course. The fitting room is right around the corner.", ja: "もちろんです。試着室はその角を曲がったところです。" },
+    {
+      speaker: "user", mode: "listen",
+      listenEn: "The fitting room is right around the corner.",
+      instruction: { ja: "もう一度聞いてみよう。試着室はどこ？" },
+      options: [
+        { en: "その角を曲がったところ", correct: true },
+        { en: "2階", correct: false, why: "upstairs や second floor とは言っていない" },
+        { en: "店の外", correct: false, why: "around the corner は「すぐそこ」という意味" },
+      ],
+    },
+    {
+      speaker: "user", mode: "choice",
+      instruction: { ja: "サイズがぴったりだった。「これにします」はどれ？" },
+      options: [
+        { en: "I'll take this one.", correct: true },
+        { en: "I take this to me.", correct: false, why: "to me が余計で不自然" },
+        { en: "This is mine now.", correct: false, why: "「もう私のものだ」になってしまう" },
+      ],
+    },
+    { speaker: "npc", who: "店員", en: "Great choice. Will that be cash or card?", ja: "いいですね。お支払いは現金ですか、カードですか？" },
+    {
+      speaker: "user", mode: "speak",
+      instruction: { ja: "「カードでお願いします」と答えよう" },
+      variants: { 1: "Card, please.", 2: "Card, please.", 3: "Card, please. Thank you." },
+      keywords: ["card"],
+    },
+    { speaker: "npc", who: "店員", en: "All set. Here's your receipt. Have a great day!", ja: "完了です。レシートをどうぞ。よい一日を！" },
+    {
+      speaker: "user", mode: "speak",
+      instruction: { ja: "「ありがとう、そちらも」と返そう" },
+      variants: { 1: "Thank you! You too.", 2: "Thanks! You too.", 3: "Thank you very much. You too!" },
+      keywords: ["you"],
+      hint: { ja: "Have a great day! には You too! で返すのが定番。これで会話がきれいに終わる。" },
+    },
+  ],
+  wrapUp: {
+    ja: "買い物はこの3つ。断る・聞く・決める。",
+    phrases: ["I'm just looking, thank you.", "Can I try this on?", "I'll take this one."],
+  },
+};

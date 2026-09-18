@@ -22,10 +22,10 @@ cd ~/Claude/GuamEnglish && python3 -m http.server 5173
 | 2 | マイクでの発音チェック・採点・自己採点フォールバック | ✅ |
 | 3 | コレクション（おみやげ12・衣装8・バッジ10）とショップ、ココの着せ替え | ✅ |
 | 4 | 家族対戦（コード共有）・フレーズ帳75句 | ✅ |
-| 5 | シナリオ全12本・PWA / Service Worker | 未着手 |
+| 5 | シナリオ全12本・PWA / Service Worker・アイコン | ✅ |
 
-> フレーズ帳は Service Worker がまだ無いため、**完全オフラインでは開けない**。
-> グアム現地でオフライン利用するには Phase 5 が必要。
+**全フェーズ完了。** シナリオ12本（173ターン・発話練習62回）、フレーズ帳75句、
+おみやげ12・衣装8・バッジ10。機内モードでも全機能が動く。
 
 シナリオは現在 2 本（`airplane` / `immigration`）。
 
@@ -47,7 +47,24 @@ cd ~/Claude/GuamEnglish && python3 -m http.server 5173
    `https://<GitHubのユーザー名>.github.io/koko-english/`
 7. この URL を家族の LINE に送る
 
-更新するときは、GitHub Desktop で `Commit` → `Push origin`。数分で全員の端末に反映される。
+### 更新するとき（重要）
+
+**ファイルを足したり変えたりしたら、push の前に必ず Service Worker を作り直すこと。**
+
+```bash
+node tools/make-sw.mjs
+```
+
+sw.js はキャッシュ対象の一覧とバージョンを埋め込んで自動生成している。
+これを忘れると、新しいファイルがキャッシュされず**オフラインで一部が開けなくなる**。
+キャラクターの見た目を変えたときは、アイコンも作り直す。
+
+```bash
+node tools/make-icons.mjs   # rsvg-convert が必要
+```
+
+そのあと GitHub Desktop で `Commit` → `Push origin`。数分で全員の端末に反映される。
+利用者の画面には「新しいバージョンがあります」のバーが出るので、押すと切り替わる。
 
 > サブディレクトリ配信（`/koko-english/` 配下）で動くことは確認済み。パスはすべて相対にしてある。
 

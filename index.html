@@ -7,6 +7,12 @@
 <meta name="description" content="家族でグアム旅行に備える英会話アプリ">
 <title>ココイングリッシュ</title>
 <link rel="stylesheet" href="./css/style.css">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+<link rel="icon" href="./icons/icon-192.png" type="image/png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="ココ英語">
 </head>
 <body>
   <div id="app">
@@ -17,6 +23,10 @@
     </header>
     <main id="view" tabindex="-1"></main>
     <nav id="tabbar" aria-label="メニュー"></nav>
+  </div>
+  <div id="updateBar" class="update-bar" hidden>
+    新しいバージョンがあります
+    <button class="btn btn-sm" id="updateBtn">更新する</button>
   </div>
   <div id="toast" role="status" aria-live="polite"></div>
   <script type="module" src="./js/main.js"></script>
