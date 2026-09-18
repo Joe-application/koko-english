@@ -1,4 +1,4 @@
-import { route, start, go, path, render as renderRoute } from "./router.js";
+import { route, start, go, path } from "./router.js";
 import { load, getActiveProfile, isStorageBroken } from "./store.js";
 import { toast } from "./util/dom.js";
 import * as tts from "./speech/tts.js";
@@ -9,8 +9,9 @@ import * as scenarioPlay from "./views/scenario.js";
 import * as result from "./views/result.js";
 import * as profile from "./views/profile.js";
 import * as settings from "./views/settings.js";
-import * as soon from "./views/soon.js";
 import * as collection from "./views/collection.js";
+import * as family from "./views/family.js";
+import * as phrasebook from "./views/phrasebook.js";
 
 /* ---------- タブ ---------- */
 const TABS = [
@@ -107,8 +108,8 @@ def("/scenarios", (v) => scenarioList.render(v));
 def("/scenario/:id", (v, p) => scenarioPlay.render(v, p));
 def("/result/:id", (v, p) => result.render(v, p));
 def("/collection", (v) => collection.render(v));
-def("/family", (v) => soon.render(v, { key: "family" }));
-def("/phrasebook", (v) => soon.render(v, { key: "phrasebook" }));
+def("/family", (v) => family.render(v));
+def("/phrasebook", (v) => phrasebook.render(v));
 def("/settings", (v) => settings.render(v));
 def("/profiles", (v) => profile.renderProfiles(v));
 def("/profile/new", (v) => profile.renderNewProfile(v));

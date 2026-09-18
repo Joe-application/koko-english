@@ -61,6 +61,7 @@ export function newProfile({ name, level = 2, avatarColor = AVATAR_COLORS[0] }) 
     scenarios: {},
     items: [],
     equipped: { outfit: null, hat: null },
+    favorites: [],
     rivals: [],
   };
 }
