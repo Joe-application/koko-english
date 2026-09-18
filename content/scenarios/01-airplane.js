@@ -1,0 +1,133 @@
+export default {
+  id: "airplane",
+  order: 1,
+  title: { ja: "機内で", en: "On the Plane" },
+  icon: "✈️",
+  place: "成田 → グアム 上空",
+  unlockAfter: [],
+  reward: { coins: 30, item: "paper-plane" },
+  intro: {
+    ja: "グアム行きの飛行機に乗ったところ。客室乗務員（CA）さんが飲み物を配りに来たよ。",
+    tips: [
+      "機内は音がうるさいので、ゆっくり・大きめの声で言うのがコツ。",
+      "聞き取れなかったら遠慮なく聞き返していい。それも英会話のうち。",
+    ],
+  },
+  turns: [
+    {
+      speaker: "npc",
+      who: "CA",
+      en: "Good evening. Would you like something to drink?",
+      ja: "こんばんは。何かお飲み物はいかがですか？",
+    },
+    {
+      speaker: "user",
+      mode: "speak",
+      instruction: { ja: "「オレンジジュースをください」と頼もう" },
+      variants: {
+        1: "Orange juice, please.",
+        2: "Can I have orange juice, please?",
+        3: "Could I have an orange juice, please?",
+      },
+      keywords: ["orange", "juice"],
+      hint: { ja: "please を付けるだけで、ぐっと丁寧になる。" },
+    },
+    {
+      speaker: "npc",
+      who: "CA",
+      en: "Sure. Would you like ice with that?",
+      ja: "かしこまりました。氷は入れますか？",
+    },
+    {
+      speaker: "user",
+      mode: "choice",
+      instruction: { ja: "「氷はいりません」はどれ？" },
+      options: [
+        { en: "No ice, please.", correct: true },
+        { en: "Ice is no.", correct: false, why: "英語の文になっていないので伝わらない" },
+        { en: "I am no ice.", correct: false, why: "「私は氷ではありません」という意味になってしまう" },
+      ],
+    },
+    {
+      speaker: "npc",
+      who: "CA",
+      en: "Here you go. We'll be serving dinner in about twenty minutes.",
+      ja: "どうぞ。あと20分ほどで夕食をお出しします。",
+      note: "Here you go. は物を手渡すときの決まり文句。Here you are. も同じ意味。",
+    },
+    {
+      speaker: "user",
+      mode: "speak",
+      instruction: { ja: "早口で聞き取れなかった！ 「もう一度言ってもらえますか」と聞き返そう" },
+      variants: {
+        1: "One more time, please.",
+        2: "Sorry, could you say that again?",
+        3: "I'm sorry, could you say that again, please?",
+      },
+      keywords: ["again"],
+      hint: { ja: "旅行でいちばん使う一言。これが言えれば会話は止まらない。" },
+    },
+    {
+      speaker: "npc",
+      who: "CA",
+      en: "Of course. Dinner will be in about twenty minutes.",
+      ja: "もちろんです。夕食はあと20分ほどでお出しします。",
+    },
+    {
+      speaker: "user",
+      mode: "listen",
+      listenEn: "Dinner will be in about twenty minutes.",
+      instruction: { ja: "もう一度聞いてみよう。夕食は何分後？" },
+      options: [
+        { en: "20分後", correct: true },
+        { en: "12分後", correct: false, why: "twelve（12）と twenty（20）は音が似ているので要注意" },
+        { en: "2時間後", correct: false, why: "hours ではなく minutes と言っている" },
+      ],
+    },
+    {
+      speaker: "npc",
+      who: "CA",
+      en: "Excuse me, could you fasten your seatbelt?",
+      ja: "すみません、シートベルトを締めていただけますか？",
+    },
+    {
+      speaker: "user",
+      mode: "choice",
+      instruction: { ja: "「はい、わかりました」はどれ？" },
+      options: [
+        { en: "Sure, no problem.", correct: true },
+        { en: "Yes, I fasten.", correct: false, why: "動詞だけでは不自然。Sure. や OK. で十分伝わる" },
+        { en: "OK, I am seatbelt.", correct: false, why: "「私はシートベルトです」になってしまう" },
+      ],
+    },
+    {
+      speaker: "npc",
+      who: "となりの人",
+      en: "…",
+      ja: "トイレに行きたい。となりの人の前を通してもらおう。",
+      silent: true,
+    },
+    {
+      speaker: "user",
+      mode: "speak",
+      instruction: { ja: "「すみません、通してもらえますか」と声をかけよう" },
+      variants: {
+        1: "Excuse me.",
+        2: "Excuse me, can I get through?",
+        3: "Excuse me, could I get past you?",
+      },
+      keywords: ["excuse"],
+      hint: { ja: "Excuse me. は「すみません」。声をかけるときの万能フレーズ。" },
+    },
+    {
+      speaker: "npc",
+      who: "となりの人",
+      en: "Oh, sure. Go ahead.",
+      ja: "ああ、どうぞどうぞ。",
+    },
+  ],
+  wrapUp: {
+    ja: "機内で使う3つ。Excuse me. が言えれば、たいていの場面で切り抜けられる。",
+    phrases: ["Can I have orange juice, please?", "Sorry, could you say that again?", "Excuse me, can I get through?"],
+  },
+};
